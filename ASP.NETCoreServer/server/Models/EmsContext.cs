@@ -39,10 +39,12 @@ namespace server.Models
                 entity.Property(e => e.FuncionarioNumero).HasColumnName("fun_num");
 
                 entity.Property(e => e.Titulo)
+                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("titulo");
 
                 entity.Property(e => e.Inicio)
+                    .IsRequired()
                     .HasColumnType("date")
                     .HasColumnName("inicio");
 
@@ -157,6 +159,8 @@ namespace server.Models
                     .HasName("funcionarios_pkey");
 
                 entity.ToTable("funcionarios");
+
+                entity.HasIndex(e => e.Cpf, "cpf_idx");
 
                 entity.Property(e => e.FuncionarioNumero)
                     .IsRequired()

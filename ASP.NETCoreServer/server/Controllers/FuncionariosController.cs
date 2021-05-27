@@ -24,17 +24,41 @@ namespace server.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Funcionarios>>> GetFuncionarios()
         {
+            //var res = await _context.Funcionarios.Select(funcionario => {
 
-            //var query = context.Funcionarios.Where(c => c.nome.Contains("")).ToList()
-            //var query = _context.Salarios.Where( s => s.)
-            return await _context.Funcionarios.ToListAsync();
+            //    Salarios = 
+
+            //})
+
+            var res = await _context.Funcionarios.OrderByDescending(funcionario => funcionario.Cpf).ToListAsync();
+            foreach(var funcionario in res)
+            {
+                funcionario.Salarios = await _context.Salarios.Where(x => x.FuncionarioNumero == funcionario.FuncionarioNumero).ToListAsync();
+                funcionario.Cargos = await _context.Cargos.Where(x => x.FuncionarioNumero == funcionario.FuncionarioNumero).ToListAsync();
+            }
+
+            //res.ForEach(async funcionario =>
+            //{
+            //    funcionario.Salarios = await _context.Salarios.Where(x => x.FuncionarioNumero == funcionario.FuncionarioNumero).ToListAsync();
+            //    funcionario.Cargos = await _context.Cargos.Where(x => x.FuncionarioNumero == funcionario.FuncionarioNumero).ToListAsync();
+            //});
+
+            return res;
         }
 
         // GET: api/Funcionarios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Funcionarios>> GetFuncionario(int id)
         {
-            var funcionario = await _context.Funcionarios.FindAsync(id);
+            var funcionario = await _context.Funcionarios.FirstOrDefaultAsync(funcionario => funcionario.FuncionarioNumero == id);
+            funcionario.Salarios = await _context.Salarios.Where(x => x.FuncionarioNumero == id).ToListAsync();
+            funcionario.Cargos = await _context.Cargos.Where(x => x.FuncionarioNumero == id).ToListAsync();
+
+       
+            //var query = context.Funcionarios.Where(c => c.nome.Contains("")).ToList()
+            //funcionario.Salarios = await _context.Salarios.Where(c => c.FuncionarioNumero == funcionario.FuncionarioNumero).ToListAsync();
+            //Console.WriteLine(funcionario);
+            //var query = _context.Salarios.Where( s => s.)
 
             if (funcionario == null)
             {
@@ -55,7 +79,7 @@ namespace server.Controllers
             }
 
             _context.Entry(funcionario).State = EntityState.Modified;
-
+            //_context.Funcionarios.Update(funcionario);
             try
             {
                 await _context.SaveChangesAsync();

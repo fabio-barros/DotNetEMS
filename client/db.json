@@ -1,0 +1,325 @@
+{
+  "funcionarios": [{
+    "id": 1,
+    "nome": "Kaitlyn",
+    "sobrenome": "Donizeau",
+    "cpf": 25,
+    "genero": "Genderfluid",
+    "dataNascimento": "5/11/2021",
+    "dataContratacao": "6/10/2020",
+    "cargos": [
+      {
+        "titulo": "GIS Technical Architect"
+      },
+      {
+        "titulo": "Accountant III"
+      },
+      {
+        "titulo": "GIS Technical Architect"
+      }
+     
+
+    ]
+  }, {
+    "id": 2,
+    "nome": "Rickey",
+    "sobrenome": "Hartin",
+    "cpf": 86,
+    "genero": "Non-binary",
+    "dataNascimento": "4/4/2021",
+    "dataContratacao": "4/9/2021",
+    "cargos": [
+      {
+        "titulo": "Account Coordinator"
+      },
+      {
+        "titulo": "Software Test Engineer IV"
+      }
+    ]
+  }, {
+    "id": 3,
+    "nome": "Salomon",
+    "sobrenome": "MacBrearty",
+    "cpf": 55,
+    "genero": "Genderfluid",
+    "dataNascimento": "7/16/2020",
+    "dataContratacao": "9/3/2020",
+    "cargos": [
+      {
+        "titulo": "Civil Engineer"
+      }
+    ]
+  }, {
+    "id": 4,
+    "nome": "Slade",
+    "sobrenome": "Anfrey",
+    "cpf": 18,
+    "genero": "Male",
+    "dataNascimento": "6/22/2020",
+    "dataContratacao": "3/18/2021",
+    "cargos": [
+      {
+        "titulo": "Junior Executive"
+      },
+      {
+        "titulo": "Desktop Support Technician"
+      },
+      {
+        "titulo": "Nurse Practicioner"
+      }
+    ]
+  }, {
+    "id": 5,
+    "nome": "Garner",
+    "sobrenome": "Hurl",
+    "cpf": 46,
+    "genero": "Agender",
+    "dataNascimento": "1/25/2021",
+    "dataContratacao": "3/31/2021",
+    "cargos": [
+      {
+        "titulo": "Automation Specialist II"
+      },
+      {
+        "titulo": "Database Administrator I"
+      },
+      {
+        "titulo": "Account Representative IV"
+      }
+    ]
+  }, {
+    "id": 6,
+    "nome": "Albina",
+    "sobrenome": "Kiffin",
+    "cpf": 91,
+    "genero": "Bigender",
+    "dataNascimento": "6/7/2020",
+    "dataContratacao": "4/6/2021",
+    "cargos": [
+      {
+        "titulo": "Research Associate"
+      }
+    ]
+  }, {
+    "id": 7,
+    "nome": "Lyndel",
+    "sobrenome": "Guerola",
+    "cpf": 19,
+    "genero": "Bigender",
+    "dataNascimento": "3/2/2021",
+    "dataContratacao": "5/14/2021",
+    "cargos": [
+      {
+        "titulo": "Quality Engineer"
+      },
+      {
+        "titulo": "General Manager"
+      }
+    ]
+  }, {
+    "id": 8,
+    "nome": "Janos",
+    "sobrenome": "Tropman",
+    "cpf": 79,
+    "genero": "Non-binary",
+    "dataNascimento": "6/30/2020",
+    "dataContratacao": "1/17/2021",
+    "cargos": [
+      {
+        "titulo": "Senior Developer"
+      },
+      {
+        "titulo": "VP Accounting"
+      },
+      {
+        "titulo": "Payment Adjustment Coordinator"
+      }
+    ]
+  }, {
+    "id": 9,
+    "nome": "Rachelle",
+    "sobrenome": "Tibbotts",
+    "cpf": 31,
+    "genero": "Agender",
+    "dataNascimento": "4/15/2021",
+    "dataContratacao": "4/1/2021",
+    "cargos": [
+      {
+        "titulo": "Environmental Specialist"
+      },
+      {
+        "titulo": "Structural Engineer"
+      }
+    ]
+  }, {
+    "id": 10,
+    "nome": "Rees",
+    "sobrenome": "Farlowe",
+    "cpf": 91,
+    "genero": "Bigender",
+    "dataNascimento": "7/29/2020",
+    "dataContratacao": "9/6/2020",
+    "cargos": [
+      {
+        "titulo": "Assistant Media Planner"
+      }
+    ]
+  }, {
+    "id": 11,
+    "nome": "Bryana",
+    "sobrenome": "Bushel",
+    "cpf": 88,
+    "genero": "Genderqueer",
+    "dataNascimento": "11/12/2020",
+    "dataContratacao": "12/19/2020",
+    "cargos": [
+      {
+        "titulo": "Staff Scientist"
+      },
+      {
+        "titulo": "Account Coordinator"
+      }
+    ]
+  }, {
+    "id": 12,
+    "nome": "Tessie",
+    "sobrenome": "Schiementz",
+    "cpf": 84,
+    "genero": "Female",
+    "dataNascimento": "3/26/2021",
+    "dataContratacao": "11/2/2020",
+    "cargos": [
+      {
+        "titulo": "Director of Sales"
+      },
+      {
+        "titulo": "Sales Representative"
+      }
+    ]
+  }, {
+    "id": 13,
+    "nome": "Jemmie",
+    "sobrenome": "Reddyhoff",
+    "cpf": 21,
+    "genero": "Polygender",
+    "dataNascimento": "12/12/2020",
+    "dataContratacao": "2/5/2021",
+    "cargos": [
+      {
+        "titulo": "Civil Engineer"
+      }
+    ]
+  }, {
+    "id": 14,
+    "nome": "Karel",
+    "sobrenome": "Millions",
+    "cpf": 43,
+    "genero": "Genderqueer",
+    "dataNascimento": "3/21/2021",
+    "dataContratacao": "10/18/2020",
+    "cargos": [
+      {
+        "titulo": "Chief Design Engineer"
+      },
+      {
+        "titulo": "Software Test Engineer II"
+      },
+      {
+        "titulo": "Teacher"
+      }
+    ]
+  }, {
+    "id": 15,
+    "nome": "George",
+    "sobrenome": "Steere",
+    "cpf": 81,
+    "genero": "Polygender",
+    "dataNascimento": "1/2/2021",
+    "dataContratacao": "2/4/2021",
+    "cargos": [
+      {
+        "titulo": "Assistant Professor"
+      },
+      {
+        "titulo": "Geological Engineer"
+      }
+    ]
+  }, {
+    "id": 16,
+    "nome": "Lawton",
+    "sobrenome": "Iglesias",
+    "cpf": 54,
+    "genero": "Genderfluid",
+    "dataNascimento": "2/14/2021",
+    "dataContratacao": "12/27/2020",
+    "cargos": [
+      {
+        "titulo": "Nurse"
+      }
+    ]
+  }, {
+    "id": 17,
+    "nome": "Carey",
+    "sobrenome": "Punter",
+    "cpf": 70,
+    "genero": "Male",
+    "dataNascimento": "3/27/2021",
+    "dataContratacao": "9/2/2020",
+    "cargos": [
+      {
+        "titulo": "Tax Accountant"
+      },
+      {
+        "titulo": "Dental Hygienist"
+      }
+    ]
+  }, {
+    "id": 18,
+    "nome": "Zollie",
+    "sobrenome": "Tolefree",
+    "cpf": 84,
+    "genero": "Bigender",
+    "dataNascimento": "9/24/2020",
+    "dataContratacao": "12/12/2020",
+    "cargos": [
+      {
+        "titulo": "Systems Administrator IV"
+      },
+      {
+        "titulo": "Design Engineer"
+      }
+    ]
+  }, {
+    "id": 19,
+    "nome": "Isadore",
+    "sobrenome": "Edgin",
+    "cpf": 81,
+    "genero": "Polygender",
+    "dataNascimento": "5/2/2021",
+    "dataContratacao": "10/8/2020",
+    "cargos": [
+      {
+        "titulo": "Technical Writer"
+      },
+      {
+        "titulo": "Executive Secretary"
+      },
+      {
+        "titulo": "Desktop Support Technician"
+      }
+    ]
+  }, {
+    "id": 20,
+    "nome": "Giacobo",
+    "sobrenome": "Lethabridge",
+    "cpf": 81,
+    "genero": "Genderfluid",
+    "dataNascimento": "10/15/2020",
+    "dataContratacao": "1/28/2021",
+    "cargos": [
+      {
+        "titulo": "Computer Systems Analyst II"
+      }
+    ]
+  }]
+}
