@@ -36,7 +36,7 @@ namespace server.Models
 
                 entity.ToTable("cargos");
 
-                entity.Property(e => e.FuncionarioNumero).HasColumnName("fun_num");
+                entity.Property(e => e.FuncionarioNumero).HasColumnName("funcionario_numero");
 
                 entity.Property(e => e.Titulo)
                     .IsRequired()
@@ -55,23 +55,23 @@ namespace server.Models
                 entity.HasOne(d => d.FunNumNavigation)
                     .WithMany(p => p.Cargos)
                     .HasForeignKey(d => d.FuncionarioNumero)
-                    .HasConstraintName("cargos_fun_num_fkey");
+                    .HasConstraintName("cargos_funcionario_numero_fkey");
             });
 
             modelBuilder.Entity<DepartamentoFuncionario>(entity =>
             {
                 entity.HasKey(e => new { e.FuncionarioNumero, e.DepartamentoNumero })
-                    .HasName("depar_func_pkey");
+                    .HasName("departamento_funcionario_pkey");
 
-                entity.ToTable("depar_func");
+                entity.ToTable("departamento_funcionario");
 
-                entity.HasIndex(e => e.DepartamentoNumero, "depar_fun_depar_num_idx");
+                entity.HasIndex(e => e.DepartamentoNumero, "departamento_funcionario_departamento_numero_idx");
 
-                entity.Property(e => e.FuncionarioNumero).HasColumnName("fun_num");
+                entity.Property(e => e.FuncionarioNumero).HasColumnName("funcionario_numero");
 
                 entity.Property(e => e.DepartamentoNumero)
                     .HasMaxLength(4)
-                    .HasColumnName("depar_num")
+                    .HasColumnName("departamento_numero")
                     .IsFixedLength(true);
 
                 entity.Property(e => e.Inicio)
@@ -87,12 +87,12 @@ namespace server.Models
                 entity.HasOne(d => d.DeparNumNavigation)
                     .WithMany(p => p.DeparFuncs)
                     .HasForeignKey(d => d.DepartamentoNumero)
-                    .HasConstraintName("depar_func_depar_num_fkey");
+                    .HasConstraintName("departamento_funcionario_departamento_numero_fkey");
 
                 entity.HasOne(d => d.FunNumNavigation)
                     .WithMany(p => p.DeparFuncs)
                     .HasForeignKey(d => d.FuncionarioNumero)
-                    .HasConstraintName("depar_func_fun_num_fkey");
+                    .HasConstraintName("departamento_funcionario_funcionario_numero_fkey");
             });
 
             modelBuilder.Entity<DepartamentoGerencia>(entity =>
@@ -100,16 +100,16 @@ namespace server.Models
                 entity.HasKey(e => new { e.DepartamentoNumero, e.FuncionarioNumero })
                     .HasName("depar_geren_pkey");
 
-                entity.ToTable("depar_geren");
+                entity.ToTable("departamento_gerencia");
 
-                entity.HasIndex(e => e.DepartamentoNumero, "func_num_depar_num_idx");
+                entity.HasIndex(e => e.DepartamentoNumero, "funcionario_numero_departamento_numero_idx");
 
                 entity.Property(e => e.DepartamentoNumero)
                     .HasMaxLength(4)
-                    .HasColumnName("depar_num")
+                    .HasColumnName("departamento_numero")
                     .IsFixedLength(true);
 
-                entity.Property(e => e.FuncionarioNumero).HasColumnName("fun_num");
+                entity.Property(e => e.FuncionarioNumero).HasColumnName("funcionario_numero");
 
                 entity.Property(e => e.Inicio)
                     .IsRequired()
@@ -124,7 +124,7 @@ namespace server.Models
                 entity.HasOne(d => d.DeparNumNavigation)
                     .WithMany(p => p.DeparGerens)
                     .HasForeignKey(d => d.DepartamentoNumero)
-                    .HasConstraintName("depar_geren_depar_num_fkey");
+                    .HasConstraintName("departamento_gerencia_departamento_numero_fkey");
 
                 entity.HasOne(d => d.FunNumNavigation)
                     .WithMany(p => p.DeparGerens)
@@ -139,18 +139,18 @@ namespace server.Models
 
                 entity.ToTable("departamentos");
 
-                entity.HasIndex(e => e.DeparNome, "departamentos_depar_nome_key")
+                entity.HasIndex(e => e.DepartamentoNumero, "departamentos_departamento_nome_key")
                     .IsUnique();
 
                 entity.Property(e => e.DepartamentoNumero)
                     .HasMaxLength(4)
-                    .HasColumnName("depar_num")
+                    .HasColumnName("departamento_numero")
                     .IsFixedLength(true);
 
-                entity.Property(e => e.DeparNome)
+                entity.Property(e => e.DepartamentoNome)
                     .IsRequired()
                     .HasMaxLength(40)
-                    .HasColumnName("depar_nome");
+                    .HasColumnName("departamento_nome");
             });
 
             modelBuilder.Entity<Funcionarios>(entity =>
@@ -162,9 +162,14 @@ namespace server.Models
 
                 entity.HasIndex(e => e.Cpf, "cpf_idx");
 
+                entity.Property(e => e.Id)
+                   .IsRequired()
+                   .HasColumnName("id")
+                   .UseIdentityAlwaysColumn();
+
                 entity.Property(e => e.FuncionarioNumero)
                     .IsRequired()
-                    .HasColumnName("fun_num")
+                    .HasColumnName("funcionario_numero")
                     .UseIdentityAlwaysColumn();
 
                 entity.Property(e => e.Cpf)
@@ -205,7 +210,7 @@ namespace server.Models
 
                 entity.ToTable("salarios");
 
-                entity.Property(e => e.FuncionarioNumero).HasColumnName("fun_num");
+                entity.Property(e => e.FuncionarioNumero).HasColumnName("funcionario_numero");
 
                 entity.Property(e => e.Inicio)
                     .IsRequired()
@@ -223,7 +228,7 @@ namespace server.Models
                 entity.HasOne(d => d.FunNumNavigation)
                     .WithMany(p => p.Salarios)
                     .HasForeignKey(d => d.FuncionarioNumero)
-                    .HasConstraintName("salarios_fun_num_fkey");
+                    .HasConstraintName("salarios_funcionario_numero_fkey");
             });
 
             OnModelCreatingPartial(modelBuilder);

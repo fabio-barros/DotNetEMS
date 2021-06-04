@@ -9,6 +9,7 @@ import {
     EmployeeEdit,
     EmployeeCreate,
 } from "../Components/Employees";
+import {JobTitles} from "../Components/JobTitles"
 // interface Props {
 //     text?: string;
 //     ok?: boolean;
@@ -24,16 +25,17 @@ const i18nProvider = polyglotI18nProvider(() => PT_BR, "br");
 const App: FC = () => {
     return (
         <Admin
-            dataProvider={restProvider("http://localhost:3000")}
+            dataProvider={restProvider("https://localhost:5001/api")}
             i18nProvider={i18nProvider}
         >
             <Resource
                 name="funcionarios"
-                list={EmployeeList}
-                create={EmployeeCreate}
-                edit={EmployeeEdit}
-                icon={EmployeeIcon}
+                 list={EmployeeList}
+                // create={EmployeeCreate}
+                // edit={EmployeeEdit}
+                // icon={EmployeeIcon}
             />
+            {/* <Resource name="cargos" list={JobTitles}></Resource> */}
         </Admin>
     );
 };

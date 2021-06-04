@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using server.Models;
@@ -35,16 +36,21 @@ namespace server
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "server", Version = "v1"}); });
 
             //ENABLE CORS
-            services.AddCors(c =>
+            services.AddCors(options =>
             {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin()
-                    .AllowAnyMethod().AllowAnyHeader());
+                options.AddPolicy("ReactAdmin", options => options.AllowAnyOrigin()
+                    .AllowAnyMethod().AllowAnyHeader().WithExposedHeaders(HeaderNames.ContentRange));
+
+                //options.AddPolicy("ReactAdmin", builder => builder.AllowAnyOrigin()
+                //    .AllowAnyMethod().WithExposedHeaders("Content-Range"," funcionarios 0-5/10"));
             });
 
-            //JSON SERIALIZER
+            services.AddControllers().AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
 
             //DB CONTEXT
-             services.AddDbContext<EmsContext>(
+            services.AddDbContext<EmsContext>(
                  options => options.UseNpgsql(
                      Configuration.GetConnectionString(
                          "DbConnectionString")
@@ -55,9 +61,7 @@ namespace server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //CORS
-            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
-            );
+            
             
             if (env.IsDevelopment())
             {
@@ -70,6 +74,9 @@ namespace server
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            //CORS
+            app.UseCors("ReactAdmin");
 
             app.UseAuthorization();
 

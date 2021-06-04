@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using server.Models;
-
 namespace server.Controllers
 {
     [Route("api/[controller]")]
@@ -15,33 +15,25 @@ namespace server.Controllers
     {
         private readonly EmsContext _context;
 
+
         public FuncionariosController(EmsContext context)
         {
             _context = context;
         }
 
         // GET: api/Funcionarios
+        //[EnableCors("ReactAdmin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Funcionarios>>> GetFuncionarios()
         {
-            //var res = await _context.Funcionarios.Select(funcionario => {
-
-            //    Salarios = 
-
-            //})
-
+            
             var res = await _context.Funcionarios.OrderByDescending(funcionario => funcionario.Cpf).ToListAsync();
             foreach(var funcionario in res)
             {
                 funcionario.Salarios = await _context.Salarios.Where(x => x.FuncionarioNumero == funcionario.FuncionarioNumero).ToListAsync();
                 funcionario.Cargos = await _context.Cargos.Where(x => x.FuncionarioNumero == funcionario.FuncionarioNumero).ToListAsync();
             }
-
-            //res.ForEach(async funcionario =>
-            //{
-            //    funcionario.Salarios = await _context.Salarios.Where(x => x.FuncionarioNumero == funcionario.FuncionarioNumero).ToListAsync();
-            //    funcionario.Cargos = await _context.Cargos.Where(x => x.FuncionarioNumero == funcionario.FuncionarioNumero).ToListAsync();
-            //});
+            Response.Headers.Add("Content-Range", "funcionarios 0-5/10");
 
             return res;
         }

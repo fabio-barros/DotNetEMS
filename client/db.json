@@ -1,4 +1,16 @@
 {
+  "cargos": [
+    {
+      "id": 1,
+      "funcionario_Id": 1,
+      "titulo": "GIS Technical Architect"
+    },
+    {
+      "id": 2,
+      "funcionario_Id": 2,
+      "titulo": "Account Coordinator"
+    }
+  ],
   "funcionarios": [{
     "id": 1,
     "nome": "Kaitlyn",

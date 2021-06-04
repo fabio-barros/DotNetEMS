@@ -14,7 +14,7 @@ namespace server.Models
         }
 
         public string DepartamentoNumero { get; set; }
-        public string DeparNome { get; set; }
+        public string DepartamentoNome { get; set; }
 
         public virtual ICollection<DepartamentoFuncionario> DeparFuncs { get; set; }
         public virtual ICollection<DepartamentoGerencia> DeparGerens { get; set; }

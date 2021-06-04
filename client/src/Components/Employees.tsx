@@ -16,6 +16,7 @@ import {
     ChipField,
     ArrayField,
     DateField,
+    NumberField
 } from "react-admin";
 
 interface employeeProps {
@@ -49,23 +50,48 @@ export const EmployeeIcon: FC = () => (
     ></span>
 );
 
+// export const EmployeeList: FC = (props) => {
+//     return (
+//         <List {...props} title="Funcionários">
+//             <Datagrid rowClick="edit">
+//                 <TextField source="id"></TextField>
+//                 <TextField source="nome"></TextField>
+//                 <TextField source="sobrenome"></TextField>
+//                 <TextField source="cpf"></TextField>
+//                 <TextField source="genero"></TextField>
+//                 <DateField source="dataNascimento"></DateField>
+//                 <DateField  source="dataContratacao" ></DateField>
+//                 <EditButton basePath="/funcionarios" />
+//                 <ArrayField source="cargos">
+//                     <SingleFieldList>
+//                         <ChipField source="titulo"  />
+//                     </SingleFieldList>
+//                 </ArrayField>
+//             </Datagrid>
+//         </List>
+//     );
+// };
+
 export const EmployeeList: FC = (props) => {
     return (
-        <List {...props} title="Funcionários">
+        <List {...props}>
             <Datagrid rowClick="edit">
-                <TextField source="id"></TextField>
-                <TextField source="nome"></TextField>
-                <TextField source="sobrenome"></TextField>
-                <TextField source="cpf"></TextField>
-                <TextField source="genero"></TextField>
-                <DateField source="dataNascimento"></DateField>
-                <DateField  source="dataContratacao" ></DateField>
-                <EditButton basePath="/funcionarios" />
+                <TextField source="id" />
+                <NumberField source="funcionarioNumero" />
+                <TextField source="nome" />
+                <TextField source="sobrenome" />
+                <TextField source="cpf" />
+                <DateField source="dataNascimento" />
+                <TextField source="genero" />
+                <DateField source="dataContratacao" />
                 <ArrayField source="cargos">
                     <SingleFieldList>
-                        <ChipField source="titulo"  />
+                        <ChipField source="titulo" />
                     </SingleFieldList>
                 </ArrayField>
+                <TextField source="deparFuncs" />
+                <TextField source="deparGerens" />
+                <TextField source="salarios" />
             </Datagrid>
         </List>
     );

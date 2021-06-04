@@ -15,6 +15,7 @@ namespace server.Models
             Salarios = new HashSet<Salarios>();
         }
 
+        public int Id { get; set; }
         public int FuncionarioNumero { get; set; }
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
