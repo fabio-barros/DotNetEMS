@@ -1,14 +1,14 @@
 # DotNetEMS
 
-<p> 🖥 Sistema de gerenciamento de funcionários utilizando .NET, React, Docker + Heroku. </p>
+<p> 🖥 Employee Management System wq .NET, React, Docker + Heroku. </p>
 
-### ⚙️ Estrutura
+### ⚙️ Structure
 
 - Client w/ React + Typescript, React Admin🚧
 - .NET Core Server API, Docker + Heroku 👷
 - Heroku Postgres DBaaS 🚧
  
-### 🛠 Tecnologias
+### 🛠 Technologies
 
 
 - [React](https://pt-br.reactjs.org/)
