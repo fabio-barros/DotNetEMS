@@ -17,11 +17,11 @@ namespace server.Models
         {
         }
 
-        public virtual DbSet<Cargos> Cargos { get; set; }
+        public virtual DbSet<Cargo> Cargos { get; set; }
         public virtual DbSet<DepartamentoFuncionario> DeparFuncs { get; set; }
         public virtual DbSet<DepartamentoGerencia> DeparGerens { get; set; }
         public virtual DbSet<Departamentos> Departamentos { get; set; }
-        public virtual DbSet<Funcionarios> Funcionarios { get; set; }
+        public virtual DbSet<Funcionario> Funcionarios { get; set; }
         public virtual DbSet<Salarios> Salarios { get; set; }
   
 
@@ -29,7 +29,7 @@ namespace server.Models
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Portuguese_Brazil.1252");
 
-            modelBuilder.Entity<Cargos>(entity =>
+            modelBuilder.Entity<Cargo>(entity =>
             {
                 entity.HasKey(e => new { e.FuncionarioNumero, e.Titulo, e.Inicio })
                     .HasName("cargos_pkey");
@@ -84,7 +84,7 @@ namespace server.Models
                     .HasColumnType("date")
                     .HasColumnName("termino");
 
-                entity.HasOne(d => d.DeparNumNavigation)
+                entity.HasOne(d => d.Departamentos)
                     .WithMany(p => p.DeparFuncs)
                     .HasForeignKey(d => d.DepartamentoNumero)
                     .HasConstraintName("departamento_funcionario_departamento_numero_fkey");
@@ -153,14 +153,14 @@ namespace server.Models
                     .HasColumnName("departamento_nome");
             });
 
-            modelBuilder.Entity<Funcionarios>(entity =>
+            modelBuilder.Entity<Funcionario>(entity =>
             {
                 entity.HasKey(e => e.FuncionarioNumero)
                     .HasName("funcionarios_pkey");
 
                 entity.ToTable("funcionarios");
 
-                entity.HasIndex(e => e.Cpf, "cpf_idx");
+                entity.HasIndex(e => e.Cpf, "cpf_idx").IsUnique();
 
                 entity.Property(e => e.Id)
                    .IsRequired()
@@ -174,8 +174,8 @@ namespace server.Models
 
                 entity.Property(e => e.Cpf)
                     .IsRequired()
-                    .HasMaxLength(11)
-                    .HasColumnName("cpf");
+                    .HasMaxLength(11).
+                    HasColumnName("cpf");
 
                 entity.Property(e => e.DataContratacao)
                     .IsRequired()

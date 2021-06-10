@@ -16,7 +16,12 @@ import {
     ChipField,
     ArrayField,
     DateField,
-    NumberField
+    NumberField,
+    NumberInput,
+    ArrayInput,
+    SimpleFormIterator,
+    SelectField,
+    SelectInput,
 } from "react-admin";
 
 interface employeeProps {
@@ -72,26 +77,69 @@ export const EmployeeIcon: FC = () => (
 //     );
 // };
 
+export const EmployeeCreate: FC = (props) => (
+    <Create title="Cadastrar um funcionário" {...props}>
+        <SimpleForm>
+            {/* <TextInput label="Número do Funcionário" disabled source="funcionarioNumero" /> */}
+            <TextInput label="Nome" source="nome" />
+            <TextInput label="Sobrenome" source="sobrenome" />
+            <TextInput label="CPF" source="cpf" />
+            <SelectInput
+                source="genero"
+                choices={[
+                    { id: "H", name: "Feminino" },
+                    { id: "M", name: "Masculino" },
+                    { id: "M", name: "Mulher trans" },
+                    { id: "M", name: "Homem trans" },
+                ]}
+            />
+            {/* <TextInput label="Gênero" source="genero" /> */}
+            <DateInput label="Data de Nascimento" source="dataNascimento" />
+            <DateInput label="Data de contratação" source="dataContratacao" />
+            <ArrayInput label="Cargos" source="cargos">
+                <SimpleFormIterator>
+                    {/* <NumberInput label="Número do Funcionário" source="funcionarioNumero" /> */}
+                    <TextInput label="Título" source="titulo" />
+                    <DateInput label="Início" source="inicio" />
+                    <DateInput label="Término" source="termino" />
+                </SimpleFormIterator>
+            </ArrayInput>
+        </SimpleForm>
+    </Create>
+);
+
 export const EmployeeList: FC = (props) => {
     return (
         <List {...props}>
             <Datagrid rowClick="edit">
-                <TextField source="id" />
-                <NumberField source="funcionarioNumero" />
-                <TextField source="nome" />
-                <TextField source="sobrenome" />
-                <TextField source="cpf" />
-                <DateField source="dataNascimento" />
-                <TextField source="genero" />
-                <DateField source="dataContratacao" />
-                <ArrayField source="cargos">
+                {/* <TextField source="id" /> */}
+                <NumberField
+                    label="Número do Funcionário"
+                    source="funcionarioNumero"
+                />
+
+                <TextField label="Nome" source="nome" />
+                <TextField label="Sobrenome" source="sobrenome" />
+                {/* <TextField label="Nome Social" source="sobrenome" /> */}
+                <TextField label="CPF" source="cpf" />
+                <DateField label="Data de Nascimento" source="dataNascimento" />
+                <TextField label="Gênero" source="genero" />
+                <DateField
+                    label="Data de Contratação"
+                    source="dataContratacao"
+                />
+                <ArrayField label="Cargos" source="cargos">
                     <SingleFieldList>
                         <ChipField source="titulo" />
                     </SingleFieldList>
                 </ArrayField>
-                <TextField source="deparFuncs" />
-                <TextField source="deparGerens" />
-                <TextField source="salarios" />
+                {/* <TextField source="deparFuncs" /> */}
+                {/* <TextField source="deparGerens" /> */}
+                <ArrayField label="Salários" source="salarios">
+                    <SingleFieldList>
+                        <ChipField source="salario" />
+                    </SingleFieldList>
+                </ArrayField>
             </Datagrid>
         </List>
     );
@@ -108,29 +156,31 @@ const Title = (props: any) => {
 };
 
 export const EmployeeEdit: FC = (props) => (
-    <Edit title={<Title />} {...props}>
+    <Edit {...props}>
         <SimpleForm>
-            <TextInput disabled source="id" />
-            <TextInput source="nome" />
-            <TextInput source="sobrenome" />
-            <TextInput source="cpf" />
-            <TextInput source="genero" />
+            <NumberInput
+                label="Número do Funcionário"
+                disabled
+                aria-disabled
+                source="funcionarioNumero"
+            />
+            <TextInput label="Nome" source="nome" />
+            <TextInput label="Sobrenome" source="sobrenome" />
+            <TextInput label="CPF" source="cpf" />
             <DateInput label="Data de Nascimento" source="dataNascimento" />
-            <DateInput label="Data de contratação" source="dataContratacao" />
+            <TextInput label="Gênero" source="genero" />
+            <DateInput label="Data de Contratação" source="dataContratacao" />
+            <ArrayInput label="Cargos" source="cargos">
+                <SimpleFormIterator>
+                    {/* <NumberInput label="Número do Funcionário" source="funcionarioNumero" /> */}
+                    <TextInput label="Título" source="titulo" />
+                    <DateInput label="Início" source="inicio" />
+                    <DateInput label="Término" source="termino" />
+                </SimpleFormIterator>
+            </ArrayInput>
+            {/* <TextInput label="Nome" source="deparFuncs" />
+            <TextInput label="Nome" source="deparGerens" />
+            <TextInput label="Nome" source="salarios" /> */}
         </SimpleForm>
     </Edit>
-);
-
-export const EmployeeCreate: FC = (props) => (
-    <Create title="Cadastrar um funcionário" {...props}>
-        <SimpleForm>
-            <TextInput disabled source="id" />
-            <TextInput source="nome" />
-            <TextInput source="sobrenome" />
-            <TextInput source="cpf" />
-            <TextInput source="genero" />
-            <DateInput label="Data de Nascimento" source="dataNascimento" />
-            <DateInput label="Data de contratação" source="dataContratacao" />
-        </SimpleForm>
-    </Create>
 );

@@ -6,121 +6,127 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using server.Filters;
 using server.Models;
+using server.Models.InputModels.EmployeeInputModel;
+using server.Services;
+
 namespace server.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/v1/[controller]")]
     public class FuncionariosController : ControllerBase
     {
-        private readonly EmsContext _context;
 
+        private readonly IEmployeeService _employeeService;
 
-        public FuncionariosController(EmsContext context)
+        public FuncionariosController(IEmployeeService employeeService)
         {
-            _context = context;
+            _employeeService = employeeService;
         }
 
         // GET: api/Funcionarios
-        //[EnableCors("ReactAdmin")]
+        [EnableCors("ReactAdmin")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Funcionarios>>> GetFuncionarios()
+        [Route("list_employees")]
+        public async Task<ActionResult<IEnumerable<Funcionario>>> GetFuncionarios()
         {
-            
-            var res = await _context.Funcionarios.OrderByDescending(funcionario => funcionario.Cpf).ToListAsync();
-            foreach(var funcionario in res)
-            {
-                funcionario.Salarios = await _context.Salarios.Where(x => x.FuncionarioNumero == funcionario.FuncionarioNumero).ToListAsync();
-                funcionario.Cargos = await _context.Cargos.Where(x => x.FuncionarioNumero == funcionario.FuncionarioNumero).ToListAsync();
-            }
-            Response.Headers.Add("Content-Range", "funcionarios 0-5/10");
 
-            return res;
+            var res = await _employeeService.GetAll();
+
+            if (res.Count == 0)
+            {
+                return NoContent();
+            }
+
+            Response.Headers.Add("Content-Range", $"funcionarios 0-24/{res.Count}");
+
+            return Ok(res);
+
         }
 
         // GET: api/Funcionarios/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Funcionarios>> GetFuncionario(int id)
+        [HttpGet("{id}", Name ="GetFuncionario")]
+        [EnableCors("ReactAdmin")]
+        public async Task<ActionResult<Funcionario>> GetFuncionario(int id)
         {
-            var funcionario = await _context.Funcionarios.FirstOrDefaultAsync(funcionario => funcionario.FuncionarioNumero == id);
-            funcionario.Salarios = await _context.Salarios.Where(x => x.FuncionarioNumero == id).ToListAsync();
-            funcionario.Cargos = await _context.Cargos.Where(x => x.FuncionarioNumero == id).ToListAsync();
 
-       
-            //var query = context.Funcionarios.Where(c => c.nome.Contains("")).ToList()
-            //funcionario.Salarios = await _context.Salarios.Where(c => c.FuncionarioNumero == funcionario.FuncionarioNumero).ToListAsync();
-            //Console.WriteLine(funcionario);
-            //var query = _context.Salarios.Where( s => s.)
+            var funcionario = await _employeeService.Get(id);
 
             if (funcionario == null)
             {
                 return NotFound();
             }
+            return Ok(funcionario);
 
-            return funcionario;
-        }
-
-        // PUT: api/Funcionarios/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFuncionario(int id, Funcionarios funcionario)
-        {
-            if (id != funcionario.FuncionarioNumero)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(funcionario).State = EntityState.Modified;
-            //_context.Funcionarios.Update(funcionario);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FuncionarioExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
         }
 
         // POST: api/Funcionarios
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Funcionarios>> PostFuncionario(Funcionarios funcionario)
+        [EnableCors("ReactAdmin")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ModelStateValidation]
+        public async Task<ActionResult<Funcionario>> PostFuncionario(Funcionario funcionario)
         {
-            _context.Funcionarios.Add(funcionario);
-            await _context.SaveChangesAsync();
+            if (funcionario is null)
+                return BadRequest(new ArgumentNullException());
 
-            return CreatedAtAction("GetFuncionario", new { id = funcionario.FuncionarioNumero }, funcionario);
+            try
+            {
+                var entity = await _employeeService.Add(funcionario);
+
+                return CreatedAtAction(nameof(GetFuncionario), new { id = entity.Id }, entity);
+
+            }
+            //GameAlreadyExistsException
+            catch (Exception e)
+            {
+
+                return UnprocessableEntity(e.Message);
+            }
+
         }
+
+        // PUT: api/Funcionarios/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        [EnableCors("ReactAdmin")]
+        [ModelStateValidation]
+        public async Task<IActionResult> PutFuncionario(int id, EmployeeInputModel funcionario)
+        {
+   
+            try
+            {
+                await _employeeService.Update(id, funcionario);
+                return Ok();
+
+            }
+            //GameDoesNotExistException
+            catch (Exception e)
+            {
+                return NotFound(e);
+            }
+
+        }  
 
         // DELETE: api/Funcionarios/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFuncionario(int id)
         {
-            var funcionario = await _context.Funcionarios.FindAsync(id);
-            if (funcionario == null)
+
+            try
             {
-                return NotFound();
+                await _employeeService.Delete(id);
+                return Ok();
             }
 
-            _context.Funcionarios.Remove(funcionario);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            //GameDoesNotExist
+            catch (Exception e)
+            {
+                return NotFound(e);
+            }
         }
 
-        private bool FuncionarioExists(int id)
-        {
-            return _context.Funcionarios.Any(e => e.FuncionarioNumero == id);
-        }
     }
 }
