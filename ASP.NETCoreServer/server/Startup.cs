@@ -37,6 +37,7 @@ namespace server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             
 
             services.AddControllers().ConfigureApiBehaviorOptions(options => {
@@ -77,6 +78,7 @@ namespace server
                  );
 
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddSingleton<TokenService,TokenService>();
 
             //JWT 
             var secret =
@@ -119,9 +121,11 @@ namespace server
             app.UseRouting();
 
             //CORS
-            app.UseCors();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-            app.UseAuthorization(); 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
